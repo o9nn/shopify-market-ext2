@@ -261,13 +261,55 @@ This app implements a sophisticated M2M (many-to-many) architecture inspired by 
 ## Development
 
 ### Running Tests
+
+#### Backend Tests
 ```bash
+# Run all backend tests
 npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+#### Frontend Tests
+```bash
+# Run all frontend tests
+npm run test:client
+
+# Run frontend tests in watch mode
+cd client && npm run test:watch
+
+# Run frontend tests with coverage
+cd client && npm run test:coverage
+
+# Run frontend tests with UI
+cd client && npm run test:ui
+```
+
+#### E2E Tests
+```bash
+# Run E2E tests
+npm run test:e2e
+
+# Run E2E tests with UI
+npm run test:e2e:ui
+```
+
+#### Run All Tests
+```bash
+npm run test:all
 ```
 
 ### Linting
 ```bash
+# Run ESLint
 npm run lint
+
+# Fix linting issues automatically
+npm run lint:fix
 ```
 
 ### Database Migrations
@@ -284,11 +326,36 @@ npm run seed
 
 ## Deployment
 
-### Production Build
+### Production Build (Web App)
 ```bash
-npm run build
-npm start
+# Build client for production
+npm run build:prod
+
+# Start production server
+NODE_ENV=production npm start
 ```
+
+### Electron Desktop App
+
+#### Development
+```bash
+# Run Electron in development mode
+npm run electron:dev
+```
+
+#### Build Electron App
+```bash
+# Build for current platform
+npm run electron:build
+
+# Build for all platforms (macOS, Windows, Linux)
+npm run electron:build:all
+```
+
+The built Electron apps will be in the `dist-electron/` directory:
+- **macOS**: `.dmg` and `.zip` files
+- **Windows**: `.exe` installer and portable `.exe`
+- **Linux**: `.AppImage` and `.deb` packages
 
 ### Environment Variables for Production
 - Set `NODE_ENV=production`
@@ -296,13 +363,58 @@ npm start
 - Configure SSL for database connection
 - Set up proper CORS origins
 
+### CI/CD
+
+This project includes comprehensive GitHub Actions workflows:
+
+#### CI Workflow (`.github/workflows/ci.yml`)
+Runs on every push and pull request:
+- Linting with ESLint
+- Backend unit tests with Jest
+- Frontend unit tests with Vitest
+- E2E tests with Playwright
+- Production build verification
+- Code coverage reporting
+
+#### Release Workflow (`.github/workflows/release.yml`)
+Triggers on version tags (e.g., `v1.0.0`):
+- Builds production web app
+- Builds Electron apps for macOS, Windows, and Linux
+- Creates GitHub release with all artifacts
+- Generates release notes automatically
+
+To create a release:
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+## Packaging Options
+
+### 1. Shopify Web App
+The application is already structured as a Shopify embedded app:
+- Uses Shopify App Bridge for embedded functionality
+- Integrates with Shopify Polaris design system
+- OAuth authentication with Shopify stores
+- Webhook handlers for real-time sync
+
+### 2. Electron Desktop App
+Standalone desktop application with:
+- Native menu bar and window management
+- Bundled Node.js backend server
+- Cross-platform support (macOS, Windows, Linux)
+- Offline-capable architecture
+- Auto-update support (configurable)
+
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Write tests for your changes
+4. Ensure all tests pass (`npm run test:all`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ## License
 
@@ -314,3 +426,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - [Shopify Polaris](https://polaris.shopify.com/)
 - [Amazon SP-API](https://developer-docs.amazon.com/sp-api/)
 - [eBay Developers](https://developer.ebay.com/)
+- [Electron Documentation](https://www.electronjs.org/docs)
+- [Playwright Testing](https://playwright.dev/)
+- [Vitest](https://vitest.dev/)
