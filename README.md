@@ -1,5 +1,8 @@
 # Shopify Marketplace Manager
 
+[![CI](https://github.com/o9nn/shopify-market-ext2/workflows/CI%20-%20Build%20and%20Test/badge.svg)](https://github.com/o9nn/shopify-market-ext2/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A comprehensive Shopify sales channel app for managing multi-marketplace integrations. Connect your Shopify store to Amazon, eBay, Walmart, and other marketplaces from a single dashboard.
 
 ## Features
